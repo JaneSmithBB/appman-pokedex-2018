@@ -8,9 +8,9 @@ import Index from './pages/index';
 class App extends Component {
   render() {
     return (
-      <main>
+      <div>
         <Route exact path="/" component={Index} />
-      </main>
+      </div>
     );
   }
 }
