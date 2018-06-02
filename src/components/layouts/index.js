@@ -1,4 +1,4 @@
-import React, { Component, PropsTypes } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { font, colors, gutter } from '../../assets/styles/_variables';
 
@@ -21,7 +21,15 @@ const LayoutBody = styled.main`
   flex: 1;
   overflow-y: auto;
   padding: ${gutter.default};
+  display: flex;
+  flex-direction: column;
 `;
+
+const Main = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`
 
 const LayoutFooter = styled.footer`
   background-color: ${colors.bottomBarBackground};
@@ -60,11 +68,14 @@ class Layout extends Component {
   }
 
   render() {
-    console.log('handleToggleView', this.props.toggleView);
     return (
       <Wrapper>
         <LayoutHeader>My Pokedex</LayoutHeader>
-        <LayoutBody>{this.props.children}</LayoutBody>
+        <LayoutBody>
+          <Main>
+            {this.props.children}
+          </Main>
+        </LayoutBody>
         <LayoutFooter>
           <LayoutAddButton type="button" onClick={() => this.props.toggleView()}>+</LayoutAddButton>
         </LayoutFooter>

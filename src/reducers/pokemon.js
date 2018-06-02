@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 import {
-  SET_CARDS
+  SET_CARDS,
+  ADD_SELECTED_CARD,
+  REMOVE_SELECTED_CARD
 } from '../types';
 
 
@@ -9,6 +11,20 @@ function setCards(data) {
   return {
     type: SET_CARDS,
     data
+  };
+}
+
+function setSelect(data) {
+  return {
+    type: ADD_SELECTED_CARD,
+    data
+  };
+}
+
+function removeSelect(id) {
+  return {
+    type: REMOVE_SELECTED_CARD,
+    id
   };
 }
 
@@ -29,14 +45,20 @@ export const getPokemons = () =>
     });
 };
 
+export const handleSelect = data => 
+  dispatch => dispatch(setSelect(data));
+
+export const handleRemove = id =>
+  dispatch => dispatch(removeSelect(id));
 
 const initialState = {
   cards: [],
+  selected: [],
 };
 
 const pokemoms = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_CARDS':
+    case SET_CARDS:
       const dataset = action.data;
       const data = dataset.map(item => {
         const id = item.id;
@@ -57,7 +79,7 @@ const pokemoms = (state = initialState, action) => {
             let dataDamage = item.damage ? item.damage : '0';
             dataDamage = dataDamage.match(/\d/g);
             dataDamage = dataDamage.join("");
-            damage += parseInt(dataDamage);
+            damage += parseInt(dataDamage, 10);
           });
         }
 
@@ -71,7 +93,26 @@ const pokemoms = (state = initialState, action) => {
         ...initialState,
         cards: data
       }
-    break;
+
+    case ADD_SELECTED_CARD:
+      const filter = state.selected.filter(item => {
+        return item.id === action.data.id;
+      });
+      let addDate = filter.length > 0 ? [...state.selected] : [...state.selected, action.data];
+      
+      return {
+        ...state,
+        selected: addDate
+      }
+
+    case REMOVE_SELECTED_CARD:
+      const removeFilter = state.selected.filter(item => {
+        return item.id !== action.id;
+      });
+      return {
+        ...state,
+        selected: removeFilter,
+      }
     
     default:
       return state;

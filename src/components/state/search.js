@@ -90,7 +90,6 @@ const SearchPanel = props => {
 class Search extends Component {
   state = {  }
   render() {
-    console.log('Search', this.props);
     const { data } = this.props;
     const cards = data;
     return (
@@ -102,7 +101,13 @@ class Search extends Component {
           </Header>
           <Body>
             {cards && cards.map(card => {
-              return <Card key={card.id} data={card} />
+              return (
+                <Card
+                  key={card.id}
+                  data={card}
+                  buttonType={this.props.buttonType}
+                  handleSelect={data => this.props.handleSelect(data)} />
+              );
             })}
           </Body>
         </Wrapper>

@@ -24,19 +24,29 @@ class State extends Component {
   }
 
   render() {
-    console.log('State', this.props)
     const cards = this.props.cards;
+    const selected = this.props.selected;
     return (
       <Wrapper>
         <Layout toggleView={() => this.props.handleToggleView()}>
-          {cards.map(card => {
-            return <Card key={card.id} data={card} />
+          { selected && selected.map(item => {
+            return (
+              <Card
+                key={item.id}
+                className="half"
+                data={item}
+                buttonType='remove'
+                handleRemove={id => this.props.handleRemove(id)}
+              />
+            );
           })}
         </Layout>
         <Search
           open={this.props.open}
           data={cards}
+          buttonType='add'
           toggleView={() => this.props.handleToggleView()}
+          handleSelect={data => this.props.handleSelect(data)}
         />
       </Wrapper>
     )

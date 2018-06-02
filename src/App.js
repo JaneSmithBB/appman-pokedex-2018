@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import './assets/styles/css/App.css';
 
-import Index from './pages/index';
+import Index from './containers/index';
 
 class App extends Component {
   render() {
