@@ -6,15 +6,21 @@
     "react-scripts": "1.1.4"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "cors": "^2.8.4",
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^2.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "api": "node ./src/server.js",
+    "api": "node ./src/server/server.js",
     "eject": "react-scripts eject"
   }
 }
